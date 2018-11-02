@@ -46,7 +46,7 @@ export default class HomeScreen extends React.Component {
       <View style={{ padding: 10 }}>
         <TextInput
           style={{ height: 40 }}
-          placeholder="Username"
+          placeholder="Email Address"
           onChangeText={username => this.setState({ username })}
         />
         <TextInput
@@ -78,4 +78,6 @@ const firebaseConfig = {
   storageBucket: "reactnative-paises.appspot.com",
   messagingSenderId: "195162408637"
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  const firebaseApp = firebase.initializeApp(firebaseConfig);
+}

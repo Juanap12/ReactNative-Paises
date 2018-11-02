@@ -1,19 +1,81 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View, Button, TextInput, Text } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
-export default class LinksScreen extends React.Component {
+import * as firebase from "firebase";
+
+export default class RegisterScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      passwordVerify: "",
+      response: ""
+    };
+
+    this.register = this.register.bind(this);
+  }
+
   static navigationOptions = {
-    title: 'Links',
+    title: 'Register',
   };
+
+  register() {
+    if(this.state.password === this.state.passwordVerify){
+      let email = this.state.username;
+      let password = this.state.password;
+      firebase.auth().createUserWithEmailAndPassword(email, password).then( () => {
+        this.props.navigation.navigate("Login");
+      }).catch( (error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        this.setState({
+          response: error.message
+        });
+        // ...
+      });
+    }else{
+      this.setState({
+        response: "Password fields must be equal"
+      });
+    }
+  }
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
-      </ScrollView>
+      <View style={{ padding: 10 }}>
+        <TextInput
+          style={{ height: 40 }}
+          placeholder="Email Address"
+          onChangeText={username => this.setState({ username })}
+        />
+        <TextInput
+          style={{ height: 40 }}
+          secureTextEntry={true}
+          placeholder="Password"
+          onChangeText={password => this.setState({ password })}
+        />
+
+        <TextInput
+          style={{ height: 40 }}
+          secureTextEntry={true}
+          placeholder="Verify Password"
+          onChangeText={passwordVerify => this.setState({ passwordVerify })}
+        />
+
+        <Button
+          onPress={this.register}
+          title="Register"
+          color="#31891b"
+          accessibilityLabel="Sign In to an awesome APP"
+        />
+
+        <Text style={{ color: "red" }}>{this.state.response}</Text>
+      </View>
     );
   }
 }
@@ -25,3 +87,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCkLX-L3lR23UMJ6mjlvU_9x3scA-7xyMc",
+  authDomain: "reactnative-paises.firebaseapp.com",
+  databaseURL: "https://reactnative-paises.firebaseio.com",
+  projectId: "reactnative-paises",
+  storageBucket: "reactnative-paises.appspot.com",
+  messagingSenderId: "195162408637"
+};
+if (!firebase.apps.length) {
+  const firebaseApp = firebase.initializeApp(firebaseConfig);
+}
+
+
