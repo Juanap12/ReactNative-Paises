@@ -25,6 +25,17 @@ export default class HomeScreen extends React.Component {
       firebase.initializeApp(firebaseConfig);
     }
 
+    firebase.auth().onAuthStateChanged( (user) => {
+      if (user) {
+        // User is signed in.
+        this.props.navigation.navigate("Login");
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+
     this.logIn = this.logIn.bind(this);
   }
 

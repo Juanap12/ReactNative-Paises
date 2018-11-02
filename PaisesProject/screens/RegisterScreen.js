@@ -15,6 +15,17 @@ export default class RegisterScreen extends React.Component {
       response: ""
     };
 
+    firebase.auth().onAuthStateChanged( (user) => {
+      if (user) {
+        // User is signed in.
+        this.props.navigation.navigate("Login");
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+
     this.register = this.register.bind(this);
   }
 
