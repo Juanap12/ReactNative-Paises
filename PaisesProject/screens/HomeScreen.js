@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { AppRegistry, Text, TextInput, View, Button } from "react-native";
-import { createSwitchNavigator } from "react-navigation";
 
 import * as firebase from "firebase";
 
@@ -39,8 +38,6 @@ export default class HomeScreen extends React.Component {
         })
         // ...
       });
-
-    console.log("Hola");
   }
 
   render() {
