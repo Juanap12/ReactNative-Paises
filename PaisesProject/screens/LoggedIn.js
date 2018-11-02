@@ -10,6 +10,7 @@ export default class LoggedIn extends Component {
             endpoint: 'https://restcountries.eu/rest/v2/all?fields=name'
 
         };
+        this.viewDetail = this.viewDetail.bind(this);
     }
     componentDidMount() {
         this.getPaises();
@@ -27,10 +28,16 @@ export default class LoggedIn extends Component {
             })
     };
 
-    vewDetail(item){
+    viewDetail(item){
         console.log(item.name);
+        this.props.navigation.navigate('Det', {
+            itemId: item.name,
+            
+          });
+
     }
     render() {
+        
         if (this.state.loading || this.state.paises.length == 0) {
             return (
                 <View style={{ padding: 60 }}>
@@ -44,7 +51,7 @@ export default class LoggedIn extends Component {
                         data={this.state.paises}
                         renderItem={({item, separators}) => (
                             <TouchableHighlight 
-                              onPress={() => this.vewDetail(item)}
+                              onPress={() => this.viewDetail(item)}
                               onShowUnderlay={separators.highlight}
                               onHideUnderlay={separators.unhighlight}>
                               <View style={{backgroundColor: 'white'}}>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { createSwitchNavigator,createStackNavigator } from 'react-navigation';
 import LoggedIn from '../screens/LoggedIn';
+import Detail from '../screens/Detail';
 
 let HomeUser = new createStackNavigator({
-  Login: LoggedIn
+  Login: LoggedIn,
+  Det: Detail
 })
 
 import MainTabNavigator from './MainTabNavigator';
