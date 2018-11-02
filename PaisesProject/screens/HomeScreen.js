@@ -7,10 +7,23 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      username: "nicorema@gmail.com",
+      password: "abcd1234",
       response: ""
     };
+
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCkLX-L3lR23UMJ6mjlvU_9x3scA-7xyMc",
+      authDomain: "reactnative-paises.firebaseapp.com",
+      databaseURL: "https://reactnative-paises.firebaseio.com",
+      projectId: "reactnative-paises",
+      storageBucket: "reactnative-paises.appspot.com",
+      messagingSenderId: "195162408637"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
     this.logIn = this.logIn.bind(this);
   }
@@ -22,20 +35,20 @@ export default class HomeScreen extends React.Component {
   logIn() {
     let email = this.state.username;
     let contra = this.state.password;
-    firebaseApp
+    firebase
       .auth()
       .signInWithEmailAndPassword(email, contra)
       .then(() => {
         this.props.navigation.navigate("Login");
       })
-      .catch((error) => {
+      .catch(error => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
 
         this.setState({
           response: error.message
-        })
+        });
         // ...
       });
   }
@@ -48,12 +61,14 @@ export default class HomeScreen extends React.Component {
           style={{ height: 40 }}
           placeholder="Email Address"
           onChangeText={username => this.setState({ username })}
+          value = {this.state.username}
         />
         <TextInput
           style={{ height: 40 }}
           secureTextEntry={true}
           placeholder="Password"
           onChangeText={password => this.setState({ password })}
+          value = {this.state.password}
         />
 
         <Button
@@ -67,17 +82,4 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
-}
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyCkLX-L3lR23UMJ6mjlvU_9x3scA-7xyMc",
-  authDomain: "reactnative-paises.firebaseapp.com",
-  databaseURL: "https://reactnative-paises.firebaseio.com",
-  projectId: "reactnative-paises",
-  storageBucket: "reactnative-paises.appspot.com",
-  messagingSenderId: "195162408637"
-};
-if (!firebase.apps.length) {
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
 }
