@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
   Text,
-  TextInput,
   View,
   Image,
-  FlatList,
-  TouchableHighlight
 } from "react-native";
 
 export default class Detail extends Component {
@@ -50,9 +46,16 @@ export default class Detail extends Component {
     } else if (!this.state.loading && this.state.details.length != 0) {
       console.log(this.state.details);
       let pais = this.state.details[0];
-      pais.gini = "Vacío";
+      pais.gini = "Data not found";
       return (
         <View>
+            <Image
+            style={{ width: 100, height: 100 }}
+            source={{
+              uri:
+                "https://www.countryflags.io/"+pais.alpha2Code+"/flat/64.png"
+            }}
+          />
           <Text> Capital: {pais.capital}</Text>
           <Text> Population: {pais.population}</Text>
           <Text> Currency: {pais.currencies[0].name}</Text>
@@ -62,13 +65,6 @@ export default class Detail extends Component {
             {" "}
             Latitude: {pais.latlng[0].toFixed(2)} Longitud: {pais.latlng[1].toFixed(2)}
           </Text>
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={{
-              uri:
-                "https://www.countryflags.io/"+pais.alpha2Code+"/flat/64.png"
-            }}
-          />
         </View>
       );
     }

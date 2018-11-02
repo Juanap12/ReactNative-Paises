@@ -30,7 +30,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Register',
+    title: 'Register Paises App',
   };
 
   register() {

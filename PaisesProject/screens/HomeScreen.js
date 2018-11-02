@@ -12,19 +12,6 @@ export default class HomeScreen extends React.Component {
       response: ""
     };
 
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyCkLX-L3lR23UMJ6mjlvU_9x3scA-7xyMc",
-      authDomain: "reactnative-paises.firebaseapp.com",
-      databaseURL: "https://reactnative-paises.firebaseio.com",
-      projectId: "reactnative-paises",
-      storageBucket: "reactnative-paises.appspot.com",
-      messagingSenderId: "195162408637"
-    };
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-
     firebase.auth().onAuthStateChanged( (user) => {
       if (user) {
         // User is signed in.
@@ -40,7 +27,7 @@ export default class HomeScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Paises App"
+    title: "Login Paises App"
   };
 
   logIn() {
@@ -85,7 +72,7 @@ export default class HomeScreen extends React.Component {
         <Button
           onPress={this.logIn}
           title="Sign In"
-          color="#ff0000"
+          color="#4d7cb5"
           accessibilityLabel="Sign In to an awesome APP"
         />
 
@@ -93,4 +80,17 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
+}
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCkLX-L3lR23UMJ6mjlvU_9x3scA-7xyMc",
+  authDomain: "reactnative-paises.firebaseapp.com",
+  databaseURL: "https://reactnative-paises.firebaseio.com",
+  projectId: "reactnative-paises",
+  storageBucket: "reactnative-paises.appspot.com",
+  messagingSenderId: "195162408637"
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
